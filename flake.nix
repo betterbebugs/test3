@@ -7,9 +7,7 @@
       lib = nixpkgs.lib.extend (
         final: prev: self.lib // home-manager.lib
       );
-      overlays = (system: import ./pkgs/overlays {
-        inherit inputs lib self;
-      });
+      overlays = (system: import ./pkgs/overlays {inherit inputs; inherit system; lib = lib; inherit self;});
       mkPkgs = (system: pkgs: overlays: import inputs.nixpkgs {
         inherit system overlays;
         config = {
